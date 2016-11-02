@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>H5动画库 ： varyH5 - 基础库</title>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="format-detection" content="email=no"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+
+	<script src="http://static.paipaiimg.com/js/jquery.1.8.js"></script>
+	<script src="js/cartoon.js"></script>
+	<script src="js/test.js"></script>
+
+	<link href="css/style.css" rel="stylesheet" />
+
+	<style>
+
+	</style>
+</head>
+<body>
+
+<div class='description'>
+	<h1>神行百变 ： varyH5.ui.wheel</h1>
+
+
+</div>
+
+
+<div class="demo-wheel">
+	<div class="vary-ui-wheel" data-tag="vary-ui-wheel">
+		<div class="vary-ui-wheel-bg"></div>
+		<div class="vary-ui-wheel-point"></div>
+	</div>
+</div>
+
+
+
+<h2 class="title">转盘动 (支持非等比划分)</h2>
+
+
+<script>
+
+	// 抽奖大转盘插件
+	// 数据是提前从服务端获取的
+	//
+	//@param {Array}    prizeDeg        角度区域。所有
+	//@param {float}    rate            转动的每帧计算的数率
+	//@param {Int}      count           最大可以抽奖次数，为0时不限制
+	//@param {Function} countOut        抽奖次数到最大时的回调函数
+	//@param {Function} clicked         点击开始转动事件函数
+	//@param {Function} error           当此函数存在时，会执行并阻止继续抽奖，出现的原因有：1. 超过次数；2. 已经中奖；3. 未知错误导致不能抽奖等
+	//@param {Function} finish        当转盘动画结束时调用的函数，一般用于提示中奖信息
+
+
+
+	$(function() {
+
+		//X轴正向为 0°，顺时针划一圈 （ 支持非等分划分 ）
+		var prizeDeg = {
+			'id-1' : [ 0, 45  ],
+			'id-2' : [ 45, 90 ],
+			'id-300' : [ 90, 135 ],
+			'id-400' : [ 135, 180 ],
+			'id-500' : [ 180, 215 ],
+			'id-6' : [ 215, 260 ],
+			'id-7' : [ 295, 330 ],
+			'id-80' : [ 330, 365 ]
+		},
+				turnNum = 4 ; //转动几圈
+
+
+		$('div[data-tag=vary-ui-wheel]').each(function(){
+			var dom = {
+				wheel : $(this),
+				bg : $(this).find('.vary-ui-wheel-bg'),
+				point :  $(this).find('.vary-ui-wheel-point')
+			};
+
+
+
+			dom.wheel.on('touchend click', function(){
+				if( dom.point.attr('data-is-run') === '1' ){
+					return false;
+				}
+				dom.point.attr('data-is-run', '1');
+				dom.bg.varyH5({
+					rotate: '+='+ turnNum * 360 ,
+					duration : 8000,
+					complete: function() {
+						dom.point.attr('data-is-run', '');
+						alert('特等奖');
+					}
+				});
+
+
+
+			});
+
+		});
+	});
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>H5动画库 ： varyH5 - 基础库</title>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="format-detection" content="email=no"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+
+	<script src="http://static.paipaiimg.com/js/jquery.1.8.js"></script>
+	<script src="js/cartoon.js"></script>
+	<script src="js/test.js"></script>
+
+	<link href="css/style.css" rel="stylesheet" />
+
+	<style>
+
+	</style>
+</head>
+<body>
+
+<div class='description'>
+	<h1>神行百变 ： varyH5.slotMachine</h1>
+
+
+</div>
+
+
+<div class="demo-slotMachine">
+
+	<div class="vary-ui-slotMachine" data-tag="vary-ui-slotMachine">
+		<div class="vary-ui-slotMachine-bg">
+			<div class="vary-ui-slotMachine-loop"></div>
+		</div>
+	</div>
+
+
+</div>
+
+
+
+<h2 class="title">老虎机动画库 (ui)</h2>
+
+
+<script>
+
+	var config = {
+		itemTypeNum : 7, //种类
+		itemYNum : 3, //有几道
+		itemBoxWidth : 40,
+		itemBoxHeight : 40
+	};
+	$(function() {
+
+
+
+
+		$('div[data-tag=vary-ui-slotMachine]').each(function(){
+			var dom = {
+				slotMachine : $(this),
+				bg : $(this).find('.vary-ui-slotMachine-bg'),
+				loop : $(this).find('.vary-ui-slotMachine-loop')
+			};
+
+			var itemNum = 500, i = 0;
+
+			var itemYHtml = [];
+			for( i = 0; i < config.itemYNum ; i++){
+				var itemHtml = '';
+				for( var j = 0; j < itemNum ; j++ ){
+					itemHtml +='<div class="vary-ui-slotMachine-item vary-ui-slotMachine-type-'+  randInt( 1, config.itemTypeNum ) +'"></div>';
+				}
+
+
+				itemYHtml.push( '<div class="vary-ui-slotMachine-y">'+ itemHtml +'</div>' );
+
+
+			}
+
+			itemYHtml = '<div class="vary-ui-slotMachine-loop-warp">'+ itemYHtml.join('') +'</div>'
+
+			dom.loop.html( itemYHtml );
+
+
+			var itemCompleteNum = 0;
+
+			dom.slotMachine.on('touchend click', function(){
+				if( itemCompleteNum !== 0 ){
+					return false;
+				}
+				itemCompleteNum = 1 ;
+
+
+				dom.slotMachine.attr('data-is-run', '1');
+
+				dom.slotMachine.find('div.vary-ui-slotMachine-y').each(function(){
+					$(this).varyH5({
+						y :  '-='+ randInt( 20, 40) * 27,
+						duration : randInt( 2000, 6000)   ,
+						complete: function() {
+							dom.slotMachine.attr('data-is-run', '');
+							itemCompleteNum += 1;
+							if( itemCompleteNum > config.itemYNum  ){
+								itemCompleteNum = 0;
+							}
+						}
+					});
+				});
+
+
+
+			});
+
+		});
+	});
+
+	function randInt(num1, num2){  //# 随机整数
+		if(num2 == undefined){
+			num2 = num1;
+			num1 = 0;
+		}
+		return Math.floor( Math.random() * (num2-num1) +num1 );
+	}
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+
+<script type="text/javascript">
+	function getBase64Image(img) {
+		var canvas = document.getElementById("canvas");
+		canvas.width = img.width;
+		canvas.height = img.height;
+
+		var ctx = canvas.getContext("2d");
+		ctx.drawImage(img, 0, 0, img.width, img.height);
+
+		ctx.fillStyle='#FF0000';
+		ctx.fillRect(0,0,80,100);
+
+		var dataURL = canvas.toDataURL("image/jpeg");
+		//return dataURL
+
+		// return dataURL.replace("data:image/png;base64,", "");
+	}
+
+
+	function main() {
+		var img = document.createElement('img');
+		img.src = 'http://127.0.0.1/2.jpg';
+		img.crossOrigin = '*';
+		img.onload =function() {
+			var data = getBase64Image(img);
+			console.log(data);
+		}
+
+		//document.body.appendChild(img);
+	}
+
+	main()
+
+</script>
+
+
+
+</body>
+</html>

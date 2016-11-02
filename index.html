@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>H5动画库 ： varyH5 - 基础库</title>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="format-detection" content="email=no"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+
+	<script src="jslib/zepto.js?"></script>
+	<script src="js/cartoon.min.js"></script>
+	<script src="js/test.js"></script>
+
+	<link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+<!--
+
+
+
+
+
+            别看了，这只是一个演示版，功能还不全
+
+
+
+
+
+
+-->
+
+
+<div class='description'>
+	<h1>神行百变 ： varyH5 （体验版 ）</h1>
+
+
+</div>
+
+
+<h2 class="title">转盘 (支持非等比划分)</h2>
+
+
+
+<div class="demo-wheel">
+	<div class="vary-ui-wheel" data-tag="vary-ui-wheel">
+		<div class="vary-ui-wheel-bg"></div>
+		<div class="vary-ui-wheel-point"></div>
+	</div>
+</div>
+
+
+
+
+<script>
+
+	$(function() {
+
+
+
+
+
+		//X轴正向为 0°，顺时针划一圈 （ 支持非等分划分 ）
+		var prizeArea = {
+					'id-1' : [ 0, 45  ],
+					'id-2' : [ 45, 90 ],
+					'id-300' : [ 90, 135 ],
+					'id-400' : [ 135, 180 ],
+					'id-500' : [ 180, 215 ],
+					'id-6' : [ 215, 260 ],
+					'id-7' : [ 295, 330 ],
+					'id-80' : [ 330, 365 ]
+				},
+				turnNum = 4 	; //转动几圈
+
+
+		$('div[data-tag=vary-ui-wheel]').each(function(){
+			var dom = {
+				wheel : $(this),
+				bg : $(this).find('.vary-ui-wheel-bg'),
+				point :  $(this).find('.vary-ui-wheel-point')
+			};
+
+
+
+			dom.wheel.on('touchend click', function(){
+				if( dom.point.attr('data-is-run') === '1' ){
+					return false;
+				}
+				dom.point.attr('data-is-run', '1');
+				dom.bg.varyH5({
+					rotate: '+='+ turnNum * 360 ,
+					duration : 8000,
+					complete: function() {
+						dom.point.attr('data-is-run', '');
+						alert('特等奖');
+					}
+				});
+
+
+
+			});
+
+		});
+	});
+
+
+</script>
+
+
+
+<!--      -->
+
+
+<hr>
+<h2 class="title">老虎机  (支持任意纵轴数)</h2>
+
+
+
+<div class="demo-slotMachine">
+
+	<div class="vary-ui-slotMachine" data-tag="vary-ui-slotMachine">
+		<div class="vary-ui-slotMachine-bg">
+			<div class="vary-ui-slotMachine-loop"></div>
+		</div>
+	</div>
+
+
+</div>
+
+
+
+
+
+<script>
+
+	var config = {
+		itemTypeNum : 7, //种类
+		itemYNum : 3, //有几道
+		itemBoxWidth : 40,
+		itemBoxHeight : 40
+	};
+	$(function() {
+
+
+
+
+		$('div[data-tag=vary-ui-slotMachine]').each(function(){
+			var dom = {
+				slotMachine : $(this),
+				bg : $(this).find('.vary-ui-slotMachine-bg'),
+				loop : $(this).find('.vary-ui-slotMachine-loop')
+			};
+
+			var itemNum = 500, i = 0;
+
+			var itemYHtml = [];
+			for( i = 0; i < config.itemYNum ; i++){
+				var itemHtml = '';
+				for( var j = 0; j < itemNum ; j++ ){
+					itemHtml +='<div class="vary-ui-slotMachine-item vary-ui-slotMachine-type-'+  randInt( 1, config.itemTypeNum ) +'"></div>';
+				}
+
+
+				itemYHtml.push( '<div class="vary-ui-slotMachine-y">'+ itemHtml +'</div>' );
+
+
+			}
+
+			itemYHtml = '<div class="vary-ui-slotMachine-loop-warp">'+ itemYHtml.join('') +'</div>'
+
+			dom.loop.html( itemYHtml );
+
+
+			var itemCompleteNum = 0;
+
+			dom.slotMachine.on('touchend click', function(){
+				if( itemCompleteNum !== 0 ){
+					return false;
+				}
+				itemCompleteNum = 1 ;
+
+
+				dom.slotMachine.attr('data-is-run', '1');
+
+				dom.slotMachine.find('div.vary-ui-slotMachine-y').each(function(){
+					$(this).varyH5({
+						y :  '-='+ randInt( 20, 40) * 27,
+						duration : randInt( 2000, 6000)   ,
+						complete: function() {
+							dom.slotMachine.attr('data-is-run', '');
+							itemCompleteNum += 1;
+							if( itemCompleteNum > config.itemYNum  ){
+								itemCompleteNum = 0;
+							}
+						}
+					});
+				});
+
+
+
+			});
+
+		});
+	});
+
+	function randInt(num1, num2){  //# 随机整数
+		if(num2 == undefined){
+			num2 = num1;
+			num1 = 0;
+		}
+		return Math.floor( Math.random() * (num2-num1) +num1 );
+	}
+
+
+</script>
+
+
+
+
+
+<hr>
+
+
+<h2 class="title">基础动画库 (Base)</h2>
+
+<div class='tests-warp'>
+	<div class='tests'></div>
+</div>
+
+<script>
+	group('转场'); //Transformations
+
+	test('平移', function($div) { $div.varyH5({ x: 20, y: 20 }); });
+	test('旋转', function($div) { $div.varyH5({ rotate: 45 }); });
+	test('旋转（带单位）', function($div) { $div.varyH5({ rotate: '45deg' }); });
+	test('X轴倾斜', function($div) { $div.varyH5({ skewX: 30 }); });
+	test('Y轴倾斜', function($div) { $div.varyH5({ skewY: 30 }); });
+	test('XY轴倾斜', function($div) { $div.varyH5({ skewY: 30, skewX: 30 }); });
+	test('放大', function($div) { $div.varyH5({ scale: 2 }); });
+	test('缩小', function($div) { $div.varyH5({ scale: 0.5 }); });
+
+
+	//group('模糊/聚焦');
+
+
+	//test('blur', function($div) { $div.varyH5({ blur : '3px' }); });
+	//test('focus', function($div) { $div.varyH5({ focus : '0' }); });
+
+
+
+
+
+
+
+	group('3D 转换');
+
+	test('X 轴翻转', function($div) {
+		$div.varyH5({
+			perspective: '500px',
+			rotateX: 180
+		});
+	});
+
+	test('Y 轴翻转', function($div) {
+		$div.varyH5({
+			perspective: '500px',
+			rotateY: 180
+		});
+	});
+
+	test('XY轴翻转', function($div) {
+		$div.varyH5({
+			perspective: '500px',
+			rotateX: 180,
+			rotateY: 180
+		});
+	});
+
+
+	group('参数');
+
+	test('延迟', function($div) {
+		$div.varyH5({ rotate: 45, delay: 150 });
+	});
+/*
+
+	test('延迟0秒', function($div) {
+		$div.varyH5({    x: 50, delay: 0 }).varyH5({ x: 0 });
+	});
+*/
+
+	test('缓动', function($div) {
+		$div.varyH5(
+				{ x: 50 }, 500, 'cubic-bezier(0,0.9,0.3,1)');
+	});
+
+	group('链式');
+
+	test('排队', function($div) {
+		$div
+				.varyH5({ x: 50 })
+				.varyH5({ x: 0 })
+				.varyH5({ y: 50 })
+				.varyH5({ y: 0 });
+	});
+
+	test('持续', function($div) {
+		$div
+				.varyH5({ x: 50 }, 0)
+				.varyH5({ x: 0 }, 0)
+				.varyH5({ y: 50 }, 0);
+	});
+
+	group('回调');
+
+	test('2个参数', function($div) {
+		$div.varyH5(
+				{ rotate: 45 },
+				function() { $div.html('OK'); });
+	});
+
+	test('3个参数', function($div) {
+		$div.varyH5(
+				{ rotate: 45 },
+				500,
+				function() { $div.html('OK'); });
+	});
+
+	test('完成', function($div) {
+		$div.varyH5({
+			rotate: 45,
+			complete: function() { $div.html('OK'); }
+		});
+	});
+
+	group('混合参数');
+
+	test('CSS、转场', function($div) {
+		$div.css({ x: -50 }).varyH5({ x: 50 });
+	});
+
+	test('透明度', function($div) {
+		$div.varyH5({ opacity: 0 }, 10000);
+	});
+
+	test('过渡变换', function($div) {
+		$div.varyH5({ transform: "translateX(80px)" });
+	});
+
+
+</script>
+
+
+<div class="clear"></div>
+
+<!--         -->
+
+
+<div class="demo-qrcode-box">
+	<div class="qrcode" id="qrcode"></div>
+</div>
+
+
+
+
+<script src="jslib/qrcode.js"></script>
+<script>
+	$(function(){
+		//不支持 IE
+		if( /msie\s([\d\.]+)*/.test( window.navigator.userAgent ) ){
+			alert('不支持 IE浏览器！请用现代浏览器（Chrome、Firefox、Safari等）');
+		}
+
+		//二维码
+		var qrcode = new QRCode(document.getElementById("qrcode"), {
+			width : 160,//设置宽高
+			height : 160
+		});
+		qrcode.makeCode( document.location.href );
+
+
+		$('#qrcode').on('touchend', function(){
+			$(this).toggleClass('demo-qrcode-box-small');
+		});
+
+		if( $(window).width() < 440 ){
+			$('#qrcode').addClass('demo-qrcode-box-small');
+		}
+
+
+
+
+	});
+</script>
+
+</body>
+</html>

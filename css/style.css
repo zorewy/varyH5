@@ -1,0 +1,130 @@
+* { margin: 0; padding: 0; font-size: 1em; }
+html,body { padding:0; background: #e3e3e7; }
+body, td, input, textarea { font-family: helvetica neue, sans-serif; font-size: 9pt; color: #444; line-height: 1.4; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
+body { padding: 10px; -webkit-touch-callout:none;
+	-webkit-backface-visibility:hidden;
+	-webkit-overflow-scrolling: touch;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-user-select: none; -moz-user-select: none; user-select: none;
+	-webkit-transition-duration: 500ms; }
+
+::-webkit-inner-spin-button {-webkit-appearance: none; }
+::-webkit-outer-spin-button {-webkit-appearance: none; }
+
+input,button,select,textarea { outline:none; font-size: 14px; }
+textarea,input,button{ width:auto; overflow:visible; outline: none;}
+ul,li{ list-style:none; overflow:hidden; }
+i,em,u { font-style:normal; }
+img { border:0 none; vertical-align:middle; }
+
+a,a:link,a:active,a:hover,a:visited{color:#666; text-decoration:none; outline: none;}
+a{color:#666;-ms-touch-action: manipulation;  touch-action: manipulation; -webkit-transition: color 0.3s linear; transition:  color 0.3s linear;  text-decoration:none; -webkit-tap-highlight-color: rgba(0,0,0,0);}
+a:hover {text-decoration: none; -webkit-transition: color 0.3s linear; transition:  color 0.3s linear;}
+a:active{ color: #F60;}
+a:focus, div:focus, button:focus{ outline:none; }
+table, td, tr{ padding: 0;}
+
+::-webkit-inner-spin-button {-webkit-appearance: none; }
+::-webkit-outer-spin-button {-webkit-appearance: none; }
+
+hr{ border: none; height: 1px; background: #CCC; margin: 20px 5px;}
+
+.clear{ clear: both;}
+
+
+.use { position: fixed; top: 0; left: 0; right: 0; padding: 20px; border-bottom: solid 1px rgba(0, 0, 0, 0.1); background: rgba(250, 250, 250, 0.9); z-index: 10; }
+.test { position: relative; width: 124px; padding: 10px; float: left; margin: 0 10px 10px 0; border-radius: 3px;  background: white;  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.05), -1px 1px 0 rgba(0, 0, 0, 0.05), 0 1px 5px rgba(0, 0, 0, 0.05); }
+.test .area { width: auto; height: 130px; margin: 0 10px 0; position: relative; }
+.test:hover {  }
+.test h3 { font-size: 1.2em; margin-bottom: 2px; overflow: hidden; line-height: 24px; }
+.test h3 em { font-style: normal; font-weight: 200; float: right; color: #37a; font-size: 0.8em; display: none; }
+.test .box { position: absolute; top: 50%; left: 50%; margin: -40px 0 0 -40px; width: 80px; height: 80px; line-height: 80px; text-align: center; background: url('../images/logo.jpg') #DBDBDB center center no-repeat; background-size: 100% auto; border-radius: 2px; z-index: 2; color: #F60; }
+
+
+/* pc */
+@media screen and (min-width : 450px) and (max-width : 99999px){
+	.test { width: 200px; padding: 10px;  }
+	.test .area{ height: 170px;}
+	.test .box { margin: -50px 0 0 -50px; width: 100px; height: 100px; line-height: 100px;}
+}
+
+/* iphone 6 plus */
+@media screen and (min-width : 380px) and (max-width : 420px){
+	.test { width: 170px; padding: 10px;  }
+	.test .area{ height: 150px;}
+	.test .box { margin: -50px 0 0 -50px; width: 100px; height: 100px; line-height: 100px;  }
+}
+
+/* iphone 6 */
+@media screen and (min-width : 370px) and (max-width : 410px){
+	.test { width: 152px; padding: 10px;  }
+	.test .area{ height: 100px;}
+	.test .box { margin: -50px 0 0 -50px; width: 100px; height: 100px; line-height: 100px;  }
+}
+
+
+
+
+.tests-warp{ overflow: hidden;}
+.tests{ width: 110%;}
+
+.test .ghost { background: #F2F2F2; z-index: 1; box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.07), inset 0 0 0 1px rgba(0, 0, 0, 0.03); }
+.test pre { font-family: menlo, monospace; font-size: 7pt; padding: 5px ; background: #eee; margin:10px -10px -10px -10px; border-top: solid 1px #ddd; white-space: pre-wrap; line-height: 1.5; word-wrap: break-word; }
+.test .code{ min-height: 60px;}
+.group-heading { margin: 20px 0 20px 0; padding-bottom: 10px; border-bottom: dotted 1px #ccc; font-size: 1.6em; clear: both; color: #70a0c0; font-weight: 200; }
+
+.use button { padding: 0 10px; }
+.use a, .use button { margin: 0 5px; }
+
+.description { margin-bottom: 20px; padding-bottom: 20px; border-bottom: solid 1px #ccc; }
+.description h1 { font-size: 2.5em; font-weight: 200; color: #707090; }
+
+
+h2.title { font-size: 2em; font-weight: 200; color: #666; margin-bottom: 20px; padding-bottom: 20px; border-bottom: solid 1px #ccc; }
+
+.description p { font-size: 1.2em; color: #707090; width: 500px; }
+.description .version { margin-bottom: 20px; font-size: 1.2em; font-weight: bold; }
+
+.demo-qrcode-box{ position: fixed; right: 10px; bottom: 10px; z-index: 1000; }
+.demo-qrcode-box-small{  width: 50px; height: 50px; overflow: hidden;}
+
+
+.demo-wheel{ margin: 10px auto; }
+.demo-wheel .vary-ui-wheel{  margin: 0 auto; width: 275px; height: 275px; }
+.demo-wheel .vary-ui-wheel-bg{  background: url('../images/wheel-bg.png');}
+.demo-wheel .vary-ui-wheel-point{  margin: -45px 0 0 -42px; background-image: url('../images/wheel-point.png');  }
+
+
+/* ui.wheel ³é½±×ªÅÌ*/
+.vary-ui-wheel{ position: relative;}
+.vary-ui-wheel .vary-ui-wheel-bg{ position: absolute; top: 0; left: 0; width: 100%; height: 100%;  background-size: 100% 100%;  }
+.vary-ui-wheel .vary-ui-wheel-point{ width:75px; height : 80px; position: absolute; top: 50%; left: 50%; z-index: 10; background-size: 100% 100%; }
+
+
+/*ÀÏ»¢»ú*/
+.demo-slotMachine{ margin: 10px auto; width: 280px;}
+.demo-slotMachine .vary-ui-slotMachine-bg{ position: relative; width: 280px; height: 200px; background: url('../images/slot-machine-bg.png');}
+
+.demo-slotMachine .vary-ui-slotMachine-loop{ top: 50px;
+	left: 65px;  width: 150px;
+	height: 82px;}
+.demo-slotMachine .vary-ui-slotMachine-y{ width: 52px; margin-left: 3px;}
+.vary-ui-slotMachine-item{ background: url('../images/slot-machine-item-bg.png'); background-size: 150px auto;
+	width: 32px; height : 27px;
+}
+.vary-ui-slotMachine-type-1{ background-position: 0 0;}
+.vary-ui-slotMachine-type-2{background-position: 0 -25px;}
+.vary-ui-slotMachine-type-3{background-position: 0 -52px;}
+.vary-ui-slotMachine-type-4{background-position: -50px 0;}
+.vary-ui-slotMachine-type-5{background-position: -50px -25px;}
+.vary-ui-slotMachine-type-6{background-position: -50px -52px;}
+.vary-ui-slotMachine-type-7{background-position: -100px 0;}
+
+
+
+.vary-ui-slotMachine .vary-ui-slotMachine-y{ float: left; position: relative;}
+.vary-ui-slotMachine .vary-ui-slotMachine-bg{ background-size: 100% auto;  }
+.vary-ui-slotMachine .vary-ui-slotMachine-loop{ position: absolute; overflow: hidden; }
+.vary-ui-slotMachine .vary-ui-slotMachine-loop-warp{ width: 120%;}
+
+
